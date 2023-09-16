@@ -14,3 +14,7 @@ Saved
 *.suo
 *.xcodeproj
 *.xcworkspace
+WindowsNoEditor/Engine/Extras/Redist/en-us/UE4PrereqSetup_x64.exe
+WindowsNoEditor/Manifest_NonUFSFiles_Win64.txt
+WindowsNoEditor/PitchBlack.exe
+WindowsNoEditor/PitchBlack/Content/Paks/PitchBlack-WindowsNoEditor.pak
