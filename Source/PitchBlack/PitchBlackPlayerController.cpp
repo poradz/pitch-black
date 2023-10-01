@@ -4,7 +4,8 @@
 #include "PitchBlackPlayerController.h"
 
 #include "GameFramework/Character.h"
-
+#include "PhysicalMaterials/PhysicalMaterial.h"
+#include "Runtime/CoreUObject/Public/UObject/Class.h"
 
 // Sets default values
 APitchBlackPlayerController::APitchBlackPlayerController()
@@ -17,7 +18,7 @@ APitchBlackPlayerController::APitchBlackPlayerController()
 void APitchBlackPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	AssignPlayerCharacter();
 }
 
@@ -25,7 +26,6 @@ void APitchBlackPlayerController::BeginPlay()
 void APitchBlackPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
 }
 
 // Function to assign the player character reference
@@ -48,15 +48,17 @@ void APitchBlackPlayerController::AssignPlayerCharacter()
 
 void APitchBlackPlayerController::PrintSomething()
 {
-	UE_LOG(LogTemp, Warning, TEXT("This is a warning message: %f"), 0.12);
 	// Define variables for the raycast parameters
 	FVector StartLocation = PbPlayer->GetActorLocation(); // Set the start location to the current actor's location
-	FVector EndLocation = StartLocation + FVector(0, 0, -800.0f); // Set the start location to the current actor's location
-	FHitResult HitResult;                       // This will store information about the hit, if any
+	FVector EndLocation = StartLocation - FVector(0, 0, 150.0f);
+	// Set the start location to the current actor's location
+	FHitResult HitResult; // This will store information about the hit, if any
 
 	// Set up the collision channel and query params
 	FCollisionQueryParams CollisionParams;
 	CollisionParams.AddIgnoredActor(this); // Ignore this actor in the raycast, if needed
+	CollisionParams.bReturnPhysicalMaterial = true;
+
 
 	// Perform the raycast
 	bool bHit = GetWorld()->LineTraceSingleByChannel(
@@ -68,14 +70,32 @@ void APitchBlackPlayerController::PrintSomething()
 	);
 
 	// Check if the ray hit something
-	if (bHit)
+	if (bHit && HitResult.GetActor() && HitResult.PhysMaterial.Get())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("MyBooleanValue is %s"), bHit ? TEXT("true") : TEXT("false"));
-		// Handle the hit result, e.g., access HitResult.Actor or HitResult.Location
+		AActor* HitActor = HitResult.GetActor();
+		FVector ActorLocation = HitActor->GetActorLocation();
+		TEnumAsByte<EPhysicalSurface> SurfaceType = HitResult.PhysMaterial.Get()->SurfaceType;
+
+
+		switch (SurfaceType)
+		{
+		case EPhysicalSurface::SurfaceType1:
+			UE_LOG(LogTemp, Warning, TEXT("This is a warning message: %f"), 0.1);
+			break;
+		case EPhysicalSurface::SurfaceType2:
+			UE_LOG(LogTemp, Warning, TEXT("This is a warning message: %f"), 0.2);
+			break;
+		case EPhysicalSurface::SurfaceType3:
+			UE_LOG(LogTemp, Warning, TEXT("This is a warning message: %f"), 0.3);
+			break;
+		default:
+			UE_LOG(LogTemp, Warning, TEXT("This is a warning message: %f"), 0.24);
+			break;
+		}
+		// UE_LOG(LogTemp, Warning, TEXT("Actor Name: %s"), *ActorName);
 	}
 	else
 	{
 		// Handle the case when the ray doesn't hit anything
 	}
 }
-
