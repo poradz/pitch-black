@@ -19,6 +19,8 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 APitchBlackCharacter::APitchBlackCharacter()
 {
+	UE_LOG(LogTemp, Warning, TEXT("TEST LOG"));
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 

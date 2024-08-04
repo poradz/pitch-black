@@ -8,6 +8,8 @@ public class PitchBlack : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "CommonUI" });
-	}
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "CommonUI", "CommonInput", "UMG" });
+
+        PrivateDependencyModuleNames.AddRange(new string[] { });
+    }
 }
