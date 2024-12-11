@@ -8,7 +8,9 @@ public class PitchBlackEditorTarget : TargetRules
 	public PitchBlackEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-		DefaultBuildSettings = BuildSettingsVersion.V2;
+        //BuildEnvironment = TargetBuildEnvironment.Unique;
+        DefaultBuildSettings = BuildSettingsVersion.V2;
 		ExtraModuleNames.Add("PitchBlack");
-	}
+        bOverrideBuildEnvironment = true;
+    }
 }

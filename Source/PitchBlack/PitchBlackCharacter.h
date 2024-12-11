@@ -92,7 +92,7 @@ protected:
 	void OnFire();
 
 	/** Resets HMD orientation and position in VR. */
-	void OnResetVR();
+	//void OnResetVR();
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
